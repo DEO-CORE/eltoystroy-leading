@@ -281,15 +281,18 @@ function Footer({ onOpenPrivacy }) {
       <div className="footer-bottom">
         <p>© 2026 Eltoy stroy. Все права защищены.</p>
         <button type="button" className="text-link-button" onClick={onOpenPrivacy}>Политика конфиденциальности</button>
-        <a
-          className="made-by-deo"
-          href={siteLinks.madeByDeo}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Made by DEO"
-        >
-          <img src="/madebydeo.svg" alt="Made by DEO" />
-        </a>
+        <div className="brand-bar">
+          <span className="brand-bar-label">Made by DEO</span>
+          <a
+            className="made-by-deo"
+            href={siteLinks.madeByDeo}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Made by DEO"
+          >
+            <img src="/madebydeo.svg" alt="Made by DEO" />
+          </a>
+        </div>
       </div>
     </footer>
   );
