@@ -489,9 +489,133 @@ button {
   margin: 0 0 7px;
 }
 
-.footer-bottom a {
+.text-link-button,
+.inline-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f3f3f3;
+  font: inherit;
   text-decoration: underline;
   text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.inline-link {
+  display: inline;
+  color: #f7b64d;
+}
+
+.cookie-banner {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  z-index: 30;
+  padding: 18px 16px 16px;
+  border: 1px solid rgba(167, 7, 17, 0.7);
+  border-radius: 16px;
+  background: rgba(20, 20, 20, 0.96);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.cookie-copy h3 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.cookie-copy p {
+  margin: 0;
+  color: #ddd;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cookie-actions {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.secondary-button {
+  min-height: 34px;
+  padding: 8px 14px;
+  border: 1px solid #6b6b6b;
+  border-radius: 10px;
+  background: transparent;
+  color: #f0f0f0;
+}
+
+.cookie-button {
+  min-height: 34px;
+  padding: 8px 16px;
+  border-radius: 10px;
+}
+
+.privacy-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.privacy-modal {
+  width: min(100%, 620px);
+  max-height: min(80vh, 760px);
+  overflow: auto;
+  border: 1px solid rgba(167, 7, 17, 0.8);
+  border-radius: 18px;
+  background: #111;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.privacy-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 20px 14px;
+  background: #111;
+  border-bottom: 1px solid rgba(167, 7, 17, 0.8);
+}
+
+.privacy-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.close-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #b30612;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.privacy-body {
+  padding: 18px 20px 24px;
+  color: #e1e1e1;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.privacy-body p {
+  margin: 0 0 14px;
 }
 
 a:focus-visible,

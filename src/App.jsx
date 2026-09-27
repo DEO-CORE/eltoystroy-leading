@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logoSrc from '../logo.svg';
 import drillSrc from '../shrupovert.svg';
+
+const COOKIE_KEY = 'eltoy-cookie-consent';
 
 // All external links are kept here so they can be updated from one place.
 const siteLinks = {
@@ -11,7 +13,7 @@ const siteLinks = {
   facebook: 'https://www.facebook.com/eltoystroy',
   youtube: 'https://youtube.com/@eltoystroy?si=4Hq2h7cS8pVOTJDO',
   tiktok: 'https://www.tiktok.com/@eltoy_stroy?_r=1&_t=ZS-99zkxC9vbtc',
-  privacy: '#',
+  privacy: '#privacy',
   madeByDeo: 'https://crm.deo-core.codes/forms/61dae79e-1119-4990-8da5-81803404ae28/',
 };
 
@@ -222,7 +224,7 @@ function Contacts() {
   );
 }
 
-function Footer() {
+function Footer({ onOpenPrivacy }) {
   const footerNav = [
     ['Главная', '#home'],
     ['Вопросы', '#faq'],
@@ -278,7 +280,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <p>© 2026 Eltoy stroy. Все права защищены.</p>
-        <a href={siteLinks.privacy}>Политика конфиденциальности</a>
+        <button type="button" className="text-link-button" onClick={onOpenPrivacy}>Политика конфиденциальности</button>
         <a
           className="made-by-deo"
           href={siteLinks.madeByDeo}
@@ -293,15 +295,108 @@ function Footer() {
   );
 }
 
-export default function App() {
+function CookieBanner({ onAccept, onOpenPrivacy }) {
   return (
-    <main className="mobile-shell">
-      <Header />
-      <Hero />
-      <Categories />
-      <FAQ />
-      <Contacts />
-      <Footer />
-    </main>
+    <div className="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent banner">
+      <div className="cookie-copy">
+        <h3>Мы используем cookies</h3>
+        <p>
+          Чтобы улучшать работу сайта, сохранять выбранные параметры и делать сервис удобнее.
+          <button type="button" className="inline-link" onClick={onOpenPrivacy}>Подробнее в Политике конфиденциальности</button>
+        </p>
+      </div>
+      <div className="cookie-actions">
+        <button type="button" className="secondary-button" onClick={onOpenPrivacy}>Политика</button>
+        <button type="button" className="primary-button cookie-button" onClick={onAccept}>Принять</button>
+      </div>
+    </div>
+  );
+}
+
+function PrivacyModal({ onClose }) {
+  return (
+    <div className="privacy-backdrop" role="dialog" aria-modal="true" aria-label="Политика конфиденциальности">
+      <div className="privacy-modal">
+        <div className="privacy-header">
+          <h2>Политика конфиденциальности</h2>
+          <button type="button" className="close-button" onClick={onClose} aria-label="Закрыть">×</button>
+        </div>
+
+        <div className="privacy-body">
+          <p>
+            Мы уважаем вашу конфиденциальность. Вся информация, которую вы предоставляете через сайт,
+            используется только для обработки вашего запроса, связи с вами и улучшения качества сервиса.
+          </p>
+          <p>
+            Мы можем собирать данные, такие как имя, номер телефона, адрес электронной почты, а также
+            техническую информацию о посещении сайта (например, тип браузера, время посещения, страницы,
+            просмотренные на сайте) для аналитики и обеспечения безопасности.
+          </p>
+          <p>
+            Ваши данные не передаются третьим лицам, за исключением случаев, предусмотренных законом,
+            а также технологических сервисов, необходимых для корректной работы сайта и обработки заказов.
+          </p>
+          <p>
+            Мы используем cookies для запоминания ваших предпочтений, улучшения навигации и анализа работы
+            сайта. Вы можете отключить cookies в настройках браузера, но при этом некоторые функции сайта
+            могут работать ограниченно.
+          </p>
+          <p>
+            Вы имеете право в любой момент запросить актуальную информацию о своих данных, попросить их
+            изменить, удалить или ограничить обработку, а также отказаться от рассылок.
+          </p>
+          <p>
+            Для этого вы можете связаться с нами по контактам, указанным на сайте, или написать нам через
+            форму обратной связи.
+          </p>
+          <p>
+            Мы будем обновлять эту Политику конфиденциальности при необходимости. Актуальная версия всегда
+            доступна на этой странице.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  const [cookieAccepted, setCookieAccepted] = useState(() => {
+    if (typeof window === 'undefined') {
+      return true;
+    }
+    return Boolean(window.localStorage.getItem(COOKIE_KEY));
+  });
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (cookieAccepted) {
+        window.localStorage.setItem(COOKIE_KEY, 'accepted');
+      } else {
+        window.localStorage.removeItem(COOKIE_KEY);
+      }
+    }
+  }, [cookieAccepted]);
+
+  return (
+    <>
+      <main className="mobile-shell">
+        <Header />
+        <Hero />
+        <Categories />
+        <FAQ />
+        <Contacts />
+        <Footer onOpenPrivacy={() => setPrivacyOpen(true)} />
+      </main>
+
+      {!cookieAccepted && (
+        <CookieBanner
+          onAccept={() => setCookieAccepted(true)}
+          onOpenPrivacy={() => setPrivacyOpen(true)}
+        />
+      )}
+
+      {privacyOpen && <PrivacyModal onClose={() => setPrivacyOpen(false)} />}
+    </>
   );
 }
