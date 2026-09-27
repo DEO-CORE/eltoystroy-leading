@@ -12,6 +12,7 @@ const siteLinks = {
   youtube: 'https://youtube.com/@eltoystroy?si=4Hq2h7cS8pVOTJDO',
   tiktok: 'https://www.tiktok.com/@eltoy_stroy?_r=1&_t=ZS-99zkxC9vbtc',
   privacy: '#',
+  madeByDeo: 'https://crm.deo-core.codes/forms/61dae79e-1119-4990-8da5-81803404ae28/',
 };
 
 const categories = [
@@ -278,6 +279,15 @@ function Footer() {
       <div className="footer-bottom">
         <p>© 2026 Eltoy stroy. Все права защищены.</p>
         <a href={siteLinks.privacy}>Политика конфиденциальности</a>
+        <a
+          className="made-by-deo"
+          href={siteLinks.madeByDeo}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Made by DEO"
+        >
+          <img src="/madebydeo.svg" alt="Made by DEO" />
+        </a>
       </div>
     </footer>
   );

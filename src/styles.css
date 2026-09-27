@@ -463,6 +463,28 @@ button {
   line-height: 1.35;
 }
 
+.made-by-deo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  opacity: 0.9;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.made-by-deo:hover,
+.made-by-deo:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.made-by-deo img {
+  display: block;
+  width: min(100%, 150px);
+  height: auto;
+}
+
 .footer-bottom p {
   margin: 0 0 7px;
 }
@@ -752,8 +774,19 @@ button:focus-visible {
     padding-top: 16px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 24px;
     font-size: 12px;
+  }
+
+  .made-by-deo {
+    width: auto;
+    margin-top: 0;
+    margin-left: auto;
+  }
+
+  .made-by-deo img {
+    width: 118px;
   }
 
   .footer-bottom p {
